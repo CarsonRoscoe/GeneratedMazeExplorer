@@ -4,6 +4,7 @@ using System;
 
 public class PlayerMovement : MonoBehaviour {
     public float RotationSpeed = 5f;
+    public float TurnTime = .25f;
     private float m_turningStartDirection;
     private float m_turning = 0;
     private float m_walking = 0;
@@ -11,27 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if ( m_blockInput ) {
-            bool actionComplete = false;
-
-            if ( m_turning < 0 ) { //Turn left
-                //transform.Rotate( Vector3.down * (RotationSpeed * Time.deltaTime) );
-                //print( transform.rotation );
-            }
-            else if ( m_turning > 0 ) { //Turn right
-            }
-            else if ( m_walking > 0 ) { //Walk forward
-            }
-            else if ( m_walking < 0 ) { //Walk backwards
-            }
-
-            if ( actionComplete ) {
-                m_walking = 0;
-                m_turning = 0;
-                m_blockInput = false;
-            }
-        }
-        else {
+        if ( !m_blockInput ) {
             if ( !StartTurning( Input.GetAxis( "Horizontal" ) ) ) {
                 StartWalking( Input.GetAxis( "Vertical" ) );
             }
@@ -42,11 +23,11 @@ public class PlayerMovement : MonoBehaviour {
     bool StartTurning( float direction ) {
         if ( direction < 0 ) {
             m_blockInput = true;
-            StartCoroutine( RotateMe( Vector3.down * 90, 1 ) );
+            StartCoroutine( RotateMe( Vector3.down * 90, TurnTime ) );
         }
         else if (direction > 0) {
             m_blockInput = true;
-            StartCoroutine( RotateMe( Vector3.up * 90, 1 ) );
+            StartCoroutine( RotateMe( Vector3.up * 90, TurnTime ) );
         } else {
             return false;
         }
@@ -56,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
     bool StartWalking( float direction ) {
         if ( direction > 0 ) {
             m_blockInput = true;
-            StartCoroutine( WalkMe( transform.position + transform.forward * 2, 1 ) );
+            StartCoroutine( WalkMe( transform.position + transform.forward * 2, TurnTime ) );
         } else {
             return false;
         }
@@ -70,23 +51,29 @@ public class PlayerMovement : MonoBehaviour {
             transform.rotation = Quaternion.Lerp( fromAngle, toAngle, t );
             yield return null;
         }
+        SnapToGrid();
         m_blockInput = false;
         TakeTurn();
     }
 
     IEnumerator WalkMe( Vector3 point, float inTime ) {
         var offset = (point - transform.position);
-        var ticks = inTime / Time.deltaTime;
-        var movementPerTick = offset / ticks;
-        var moved = Vector3.zero;
-        for ( var i = 0; i < ticks; i++ ) {
-            transform.position += movementPerTick;
-            moved += movementPerTick;
+        for ( var t = 0f; t < 1; t += Time.deltaTime / inTime ) {
+            transform.position += offset * (Time.deltaTime / inTime);
             yield return null;
         }
-        print( "MOVED " + moved.ToString() );
         m_blockInput = false;
+        SnapToGrid();
         TakeTurn();
+    }
+
+    void SnapToGrid() {
+        var x = (int)Math.Round( transform.position.x );
+        var z = (int)Math.Round( transform.position.z );
+        transform.position = new Vector3( x, transform.position.y, z );
+
+        var yRotation = Mathf.Round( transform.rotation.eulerAngles.y / 90 ) * 90;
+        transform.eulerAngles = new Vector3( 0, yRotation, 0 );
     }
 
     void TakeTurn() {

@@ -144,7 +144,7 @@ public class CreateMaze : MonoBehaviour {
     void DrawMaze() {
         //Load the floor
         var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
-        floor.transform.position = new Vector3( MazeWidth, -3f, MazeHeight );
+        floor.transform.position = new Vector3( MazeWidth-1, -3f, MazeHeight-1 );
         floor.transform.localScale = new Vector3( MazeWidth * 2, 1, MazeHeight * 2 );
 
         for ( int w = 0; w < MazeWidth; w++ )
@@ -193,7 +193,7 @@ public class CreateMaze : MonoBehaviour {
         else
             print( "Error in CreateMaze.cs - InitPlayer() method" );
 
-        player.transform.position = (MazeStart.position*2) + startOffset;
+        player.transform.position = (MazeStart.position*2) + startOffset * 2;
         player.transform.eulerAngles = startFacing;
         camera.transform.position = new Vector3( MazeWidth, 40, MazeHeight );
         camera.transform.eulerAngles = new Vector3( 90, 0, 0 );
