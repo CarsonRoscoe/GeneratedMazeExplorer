@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class CreateMaze : MonoBehaviour {
+    public static CreateMaze Instance;
 
     private Coordinate[,] Maze;
     private Coordinate MazeStart;
@@ -10,6 +12,17 @@ public class CreateMaze : MonoBehaviour {
     private enum MazeID { WALL, SPACE };
     public int MazeWidth = 20;
     public int MazeHeight = 10;
+    private int mazeScale = 2;
+
+    void Awake() {
+        if ( Instance == null ) {
+            Instance = this;
+        }
+        else {
+            Destroy( this );
+        }
+    }
+
     // Use this for initialization
     void Start() {
         InitMaze();
@@ -107,7 +120,7 @@ public class CreateMaze : MonoBehaviour {
 
     int[] RandomizeArray( int[] a ) {
         for ( int i = a.Length - 1; i > 0; i-- ) {
-            int rnd = Random.Range( 0, i + 1 );
+            int rnd = UnityEngine.Random.Range( 0, i + 1 );
             int temp = a[i];
             a[i] = a[rnd];
             a[rnd] = temp;
@@ -118,15 +131,15 @@ public class CreateMaze : MonoBehaviour {
     Coordinate RandomBorderTile() {
         int pos = 0;
         Coordinate ret = new Coordinate( 0, 0 );
-        if ( Random.Range( 0, 2 ) == 0 ) {//width
-            pos = (Random.Range( 0, (MazeWidth - 5) / 2 ) * 2) + 3;
+        if ( UnityEngine.Random.Range( 0, 2 ) == 0 ) {//width
+            pos = (UnityEngine.Random.Range( 0, (MazeWidth - 5) / 2 ) * 2) + 3;
             ret.x = pos;
-            ret.y = Random.Range( 0, 2 ) == 0 ? 0 : MazeHeight - 1;
+            ret.y = UnityEngine.Random.Range( 0, 2 ) == 0 ? 0 : MazeHeight - 1;
             return ret;
         }
         else {//height
-            pos = (Random.Range( 0, (MazeHeight - 5) / 2 ) * 2) + 3;
-            ret.x = Random.Range( 0, 2 ) == 0 ? 0 : MazeWidth - 1;
+            pos = (UnityEngine.Random.Range( 0, (MazeHeight - 5) / 2 ) * 2) + 3;
+            ret.x = UnityEngine.Random.Range( 0, 2 ) == 0 ? 0 : MazeWidth - 1;
             ret.y = pos;
             return ret;
         }
@@ -144,7 +157,7 @@ public class CreateMaze : MonoBehaviour {
     void DrawMaze() {
         //Load the floor
         var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
-        floor.transform.position = new Vector3( MazeWidth, -3f, MazeHeight );
+        floor.transform.position = new Vector3( MazeWidth - 1, -3f, MazeHeight - 1 );
         floor.transform.localScale = new Vector3( MazeWidth * 2, 1, MazeHeight * 2 );
 
         for ( int w = 0; w < MazeWidth; w++ )
@@ -164,7 +177,7 @@ public class CreateMaze : MonoBehaviour {
                     else
                         resource = "StandardWall";
                     GameObject wall = (GameObject)Instantiate( Resources.Load( resource ) );
-                    wall.transform.position = new Vector3( realW * 2, 0, realH * 2 );
+                    wall.transform.position = new Vector3( realW * mazeScale, 0, realH * mazeScale );
                 }
             }
     }
@@ -193,21 +206,27 @@ public class CreateMaze : MonoBehaviour {
         else
             print( "Error in CreateMaze.cs - InitPlayer() method" );
 
-        player.transform.position = (MazeStart.position*2) + startOffset;
+        startOffset.y = -.1f;
+        player.transform.position = (MazeStart.position * mazeScale) + startOffset * mazeScale;
         player.transform.eulerAngles = startFacing;
-        camera.transform.position = new Vector3( MazeWidth, 40, MazeHeight );
-        camera.transform.eulerAngles = new Vector3( 90, 0, 0 );
+        SettingsManager.Instance.PlayerStartPosition = player.transform.position;
+        SettingsManager.Instance.PlayerStartEuler = startFacing;
     }
 
-    //Color getColor(MazeID id) {
-    //    switch(id) {
-    //        case MazeID.SPACE:
-    //            return Color.white;
-    //        case MazeID.WALL:
-    //            return Color.black;
-    //    }
-    //    return Color.red;
-    //}
+    public bool IsWorldCoordinateOccupied( Vector3 worldCoordinate ) {
+        var w = (int)(worldCoordinate.x / mazeScale);
+        var h = (int)(worldCoordinate.z / mazeScale);
+        bool result;
+        try {
+            result = (Maze[w, h].type == MazeID.WALL);
+            print( worldCoordinate.x + " " + worldCoordinate.z + " " + result + "\n" + DateTime.Now.Ticks );
+        }
+        catch ( Exception ) {
+            print( "Maze position" + w + " " + h + " out of index" );
+            result = false;
+        }
+        return result;
+    }
 
     private class Coordinate {
         public int x;
