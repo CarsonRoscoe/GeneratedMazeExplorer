@@ -36,8 +36,13 @@ public class PlayerMovement : MonoBehaviour {
 
     bool StartWalking( float direction ) {
         if ( direction > 0 ) {
-            m_blockInput = true;
-            StartCoroutine( WalkMe( transform.position + transform.forward * 2, TurnTime ) );
+            var moveTo = transform.position + transform.forward * 2;
+            if (!CreateMaze.Instance.IsWorldCoordinateOccupied(moveTo) || SettingsManager.Instance.WalkThroughWalls) {
+                m_blockInput = true;
+                StartCoroutine( WalkMe( moveTo, TurnTime ) );
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -78,5 +83,10 @@ public class PlayerMovement : MonoBehaviour {
 
     void TakeTurn() {
         TurnManager.Instance.TakeTurn();
+    }
+
+    public void ResetToStart() {
+        transform.position = SettingsManager.Instance.PlayerStartPosition;
+        transform.eulerAngles = SettingsManager.Instance.PlayerStartEuler;
     }
 }
