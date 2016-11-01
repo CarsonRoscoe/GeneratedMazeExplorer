@@ -23,16 +23,21 @@ public class GameManager : MonoBehaviour {
   }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.O)) {
-            ToggleDayNight();
-        }
-        if (Input.GetKeyDown(KeyCode.P )) {
-            ToggleFog();
+
+        //Check if the user double tapped on mobile
+        if ( Input.GetMouseButtonDown( 0 ) ) {
+            for ( int i = 0; i < Input.touchCount; i++ ) {
+                if ( Input.GetTouch( i ).phase == TouchPhase.Began ) {
+                    if ( Input.GetTouch( i ).tapCount == 2 ) {
+                        ResetGame();
+                    }
+                }
+            }
         }
     }
 
-    public void ResetRound() {
-        GameObject.Find( "Player" ).GetComponent<PlayerMovement>().ResetToStart();
+    public void ResetGame() {
+        UIManager.Instance.ResetGame();
     }
 
     public void ToggleWalkThroughWalls(bool? toggled = null) {

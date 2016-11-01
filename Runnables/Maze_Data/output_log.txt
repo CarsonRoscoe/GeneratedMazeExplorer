@@ -1,0 +1,29 @@
+Mono path[0] = 'C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data/Managed'
+Mono path[1] = 'C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data/Mono'
+Mono config path = 'C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data/Mono/etc'
+PlayerConnection initialized from C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55246
+Multi-casting "[IP] 192.168.56.1 [Port] 55246 [Flags] 2 [Guid] 340157344 [EditorId] 1417660260 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-PHN17LP) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.56.1:55246]
+Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4600 (ID=0x416)
+    Vendor:   Intel
+    VRAM:     1136 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.051 seconds
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 50Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
