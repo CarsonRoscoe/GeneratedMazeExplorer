@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour {
         }
         m_isDay = true;
         m_hasFog = false;
-    }
+        SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
+  }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.O)) {
@@ -49,24 +50,31 @@ public class GameManager : MonoBehaviour {
     }
 
     private void ReloadWallShaders() {
-        string shaderName = string.Empty;
-        if (m_hasFog) {
-            if (m_isDay) {
-                shaderName = "Custom/FogDayShader";
-            } else {
-                shaderName = "Custom/FogNightShader";
-            }
-        } else {
-            if (m_isDay) {
-                shaderName = "Custom/DayShader";
-            } else {
-                shaderName = "Custom/NightShader";
-            }
-        }
-        Shader shader = Shader.Find( shaderName );
+        SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
 
         foreach ( var wall in GameObject.FindGameObjectsWithTag( "Wall" ) ) {
-            wall.GetComponent<Renderer>().material.shader = shader;
+            wall.GetComponent<RenderSurface>().Redraw();
         }
+    }
+
+    private string DetermineShader() {
+      string shaderName = string.Empty;
+      if ( m_hasFog ) {
+        if ( m_isDay ) {
+          shaderName = "Custom/FogDayShader";
+        }
+        else {
+          shaderName = "Custom/FogNightShader";
+        }
+      }
+      else {
+        if ( m_isDay ) {
+          shaderName = "Custom/DayShader";
+        }
+        else {
+          shaderName = "Custom/NightShader";
+        }
+      }
+      return shaderName;
     }
 }

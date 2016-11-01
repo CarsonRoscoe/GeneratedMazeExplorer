@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RenderWall : MonoBehaviour {
-
+public class RenderWall : RenderSurface {
   void Start() {
     Mesh mesh = GetComponent<MeshFilter>().mesh;
     Vector2[] UVs = new Vector2[mesh.vertices.Length];

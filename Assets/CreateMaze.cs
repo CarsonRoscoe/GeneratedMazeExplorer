@@ -212,7 +212,7 @@ public class CreateMaze : MonoBehaviour {
             print( "Error in CreateMaze.cs - InitPlayer() method" );
 
         startOffset.y = -.1f;
-        player.transform.position = (MazeStart.position * mazeScale);
+        player.transform.position = (MazeStart.position * mazeScale) + Vector3.up;
         player.transform.eulerAngles = startFacing;
         SettingsManager.Instance.PlayerStartPosition = player.transform.position;
         SettingsManager.Instance.PlayerStartEuler = startFacing;
@@ -312,8 +312,15 @@ public class CreateMaze : MonoBehaviour {
         }
 
         public void Activate(bool active) {
-            if (positionObject != null)
-                positionObject.SetActive(active);
+            if ( positionObject != null ) {
+                positionObject.SetActive( active );
+                if ( active ) {
+                    var renderWall = positionObject.GetComponent<RenderWall>();
+                    if ( renderWall != null ) {
+                        renderWall.Redraw();
+                    }
+                }
+            }
         }
 
     }
