@@ -159,9 +159,6 @@ public class CreateMaze : MonoBehaviour {
 
     void DrawMaze() {
         //Load the floor
-        var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
-        floor.transform.position = new Vector3( MazeWidth - 1, -2.5f, MazeHeight - 1 );
-        floor.transform.localScale = new Vector3( MazeWidth * 2, 1, MazeHeight * 2 );
 
         for ( int w = 0; w < MazeWidth; w++ )
             for ( int h = 0; h < MazeHeight; h++ ) {
@@ -170,8 +167,17 @@ public class CreateMaze : MonoBehaviour {
                     wall.transform.position = new Vector3( w * mazeScale, 0, h * mazeScale );
                     Maze[w, h].positionObject = wall;
                     Maze[w, h].Activate(false);
-                }
-            }
+
+
+
+        } else {
+          var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
+          floor.transform.position = new Vector3( w * mazeScale, -2.5f, h * mazeScale );
+          floor.transform.localScale = new Vector3( mazeScale, 1, mazeScale );
+          Maze[w, h].positionObject = floor;
+          Maze[w, h].Activate( false );
+        }
+      }
 
         GameObject endGate = (GameObject)Instantiate(Resources.Load("Gate"));
         endGate.transform.position = new Vector3(MazeEnd.x * mazeScale, 0, MazeEnd.y * mazeScale);

@@ -4,7 +4,7 @@
     _MainTex("Base (RGB)", 2D) = "white" {}
     _FogColor("Fog Color (RGB)", Color) = (0.5, 0.5, 0.5, 1.0)
     _FogStart("Fog Start", Float) = 0.0
-    _FogEnd("Fog End", Float) = 10.0
+    _FogEnd("Fog End", Float) = 5.0
     _Glossiness("Smoothness", Range(0,1)) = 0.5
     _Metallic("Metallic", Range(0,1)) = 0.0
   }
