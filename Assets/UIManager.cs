@@ -43,14 +43,14 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ToggleFog(bool toggled) {
-
+        GameManager.Instance.ToggleFog();
     }
 
     public void ToggleDayNight(bool toggled) {
-
+        GameManager.Instance.ToggleDayNight();
     }
 
     public void ToggleClipping(bool toggled) {
-
+        GameManager.Instance.ToggleWalkThroughWalls();
     }
 }

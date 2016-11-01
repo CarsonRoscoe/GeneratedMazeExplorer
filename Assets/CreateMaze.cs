@@ -159,30 +159,25 @@ public class CreateMaze : MonoBehaviour {
 
     void DrawMaze() {
         //Load the floor
-        var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
-        floor.transform.position = new Vector3( MazeWidth - 1, -3f, MazeHeight - 1 );
-        floor.transform.localScale = new Vector3( MazeWidth * 2, 1, MazeHeight * 2 );
 
         for ( int w = 0; w < MazeWidth; w++ )
             for ( int h = 0; h < MazeHeight; h++ ) {
-                string resource = string.Empty;
                 if ( Maze[w, h].type == MazeID.WALL ) {
-                    if ( w == 0 )
-                        resource = "WestWall";
-                    else if ( w == MazeWidth - 1 )
-                        resource = "EastWall";
-                    else if ( h == 0 )
-                        resource = "NorthWall";
-                    else if ( h == MazeHeight - 1 )
-                        resource = "SouthWall";
-                    else
-                        resource = "StandardWall";
-                    GameObject wall = (GameObject)Instantiate( Resources.Load( resource ) );
+                    GameObject wall = (GameObject)Instantiate( Resources.Load( "StandardWall" ) );
                     wall.transform.position = new Vector3( w * mazeScale, 0, h * mazeScale );
                     Maze[w, h].positionObject = wall;
                     Maze[w, h].Activate(false);
-                }
-            }
+
+
+
+        } else {
+          var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
+          floor.transform.position = new Vector3( w * mazeScale, -2.5f, h * mazeScale );
+          floor.transform.localScale = new Vector3( mazeScale, 1, mazeScale );
+          Maze[w, h].positionObject = floor;
+          Maze[w, h].Activate( false );
+        }
+      }
 
         GameObject endGate = (GameObject)Instantiate(Resources.Load("Gate"));
         endGate.transform.position = new Vector3(MazeEnd.x * mazeScale, 0, MazeEnd.y * mazeScale);
@@ -194,7 +189,6 @@ public class CreateMaze : MonoBehaviour {
                 Destroy(Maze[w, h].positionObject);
             }
         Destroy(GameObject.FindWithTag("Gate"));
-        Destroy(GameObject.FindWithTag("Floor"));
         InitAll();
     }
 
@@ -223,7 +217,7 @@ public class CreateMaze : MonoBehaviour {
             print( "Error in CreateMaze.cs - InitPlayer() method" );
 
         startOffset.y = -.1f;
-        player.transform.position = (MazeStart.position * mazeScale);
+        player.transform.position = (MazeStart.position * mazeScale) + Vector3.up;
         player.transform.eulerAngles = startFacing;
         SettingsManager.Instance.PlayerStartPosition = player.transform.position;
         SettingsManager.Instance.PlayerStartEuler = startFacing;
@@ -323,8 +317,15 @@ public class CreateMaze : MonoBehaviour {
         }
 
         public void Activate(bool active) {
-            if (positionObject != null)
-                positionObject.SetActive(active);
+            if ( positionObject != null ) {
+                positionObject.SetActive( active );
+                if ( active ) {
+                    var renderWall = positionObject.GetComponent<RenderSurface>();
+                    if ( renderWall != null ) {
+                        renderWall.Redraw();
+                    }
+                }
+            }
         }
 
     }
