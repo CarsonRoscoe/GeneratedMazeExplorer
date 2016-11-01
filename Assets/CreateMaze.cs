@@ -90,6 +90,7 @@ public class CreateMaze : MonoBehaviour {
         bool canUp = p.y - 2 > 0 && !Maze[p.x, p.y - 2].visited;
         bool canDown = p.y + 2 < MazeHeight - 1 && !Maze[p.x, p.y + 2].visited;
         int[] around = { 0, 1, 2, 3 };
+
         around = RandomizeArray( around );
         for ( int i = 0; i < 4; i++ )
             switch ( around[i] ) {
@@ -317,7 +318,6 @@ public class CreateMaze : MonoBehaviour {
             return (c.x == x && c.y == y);
         }
 
-        
         public override string ToString() {
             return "x: " + x + " y:" + y;
         }

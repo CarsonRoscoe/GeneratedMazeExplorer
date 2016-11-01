@@ -7,8 +7,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
-    private Shader m_dayShader;
-    private Shader m_nightShader;
+    private bool m_isDay;
+    private bool m_hasFog;
 
     void Awake() {
         if ( Instance == null ) {
@@ -17,21 +17,17 @@ public class GameManager : MonoBehaviour {
         else {
             Destroy( this );
         }
+        m_isDay = true;
+        m_hasFog = false;
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.O)) {
-            SetToDay();
+            ToggleDayNight();
         }
         if (Input.GetKeyDown(KeyCode.P )) {
-            SetToNight();
+            ToggleFog();
         }
-    }
-
-    void Start() {
-        m_dayShader = Shader.Find( "Custom/DayShader" );
-        m_nightShader = Shader.Find( "Custom/NightShader" );
-        SettingsManager.Instance.ActiveShader = m_dayShader;
     }
 
     public void ResetRound() {
@@ -42,19 +38,35 @@ public class GameManager : MonoBehaviour {
         SettingsManager.Instance.WalkThroughWalls = !SettingsManager.Instance.WalkThroughWalls;
     }
 
-    public void SetToDay() {
-        SettingsManager.Instance.ActiveShader = m_dayShader;
+    public void ToggleDayNight() {
+        m_isDay = !m_isDay;
         ReloadWallShaders();
     }
 
-    public void SetToNight() {
-        SettingsManager.Instance.ActiveShader = m_nightShader;
+    public void ToggleFog() {
+        m_hasFog = !m_hasFog;
         ReloadWallShaders();
     }
 
     private void ReloadWallShaders() {
+        string shaderName = string.Empty;
+        if (m_hasFog) {
+            if (m_isDay) {
+                shaderName = "Custom/FogDayShader";
+            } else {
+                shaderName = "Custom/FogNightShader";
+            }
+        } else {
+            if (m_isDay) {
+                shaderName = "Custom/DayShader";
+            } else {
+                shaderName = "Custom/NightShader";
+            }
+        }
+        Shader shader = Shader.Find( shaderName );
+
         foreach ( var wall in GameObject.FindGameObjectsWithTag( "Wall" ) ) {
-            wall.GetComponent<Renderer>().material.shader = SettingsManager.Instance.ActiveShader;
+            wall.GetComponent<Renderer>().material.shader = shader;
         }
     }
 }
