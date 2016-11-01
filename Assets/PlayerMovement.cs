@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour {
     private float m_turning = 0;
     private float m_walking = 0;
     private bool m_blockInput = false;
+    [HideInInspector]
+    public bool canMove = true;
 
     // Update is called once per frame
     void Update() {
-        if ( !m_blockInput ) {
+        if (canMove && !m_blockInput ) {
             if ( !StartTurning( Input.GetAxis( "Horizontal" ) ) ) {
                 StartWalking( Input.GetAxis( "Vertical" ) );
             }
@@ -38,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         if ( direction > 0 ) {
             var moveTo = transform.position + transform.forward * 2;
             if (!CreateMaze.Instance.IsWorldCoordinateOccupied(moveTo) || SettingsManager.Instance.WalkThroughWalls) {
+                CreateMaze.Instance.CalculatePooling(moveTo);
                 m_blockInput = true;
                 StartCoroutine( WalkMe( moveTo, TurnTime ) );
             } else {
@@ -50,6 +53,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     IEnumerator RotateMe( Vector3 byAngles, float inTime ) {
+        SnapToGrid();
         var fromAngle = transform.rotation;
         var toAngle = Quaternion.Euler( transform.eulerAngles + byAngles );
         for ( var t = 0f; t < 1; t += Time.deltaTime / inTime ) {
@@ -62,6 +66,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     IEnumerator WalkMe( Vector3 point, float inTime ) {
+        SnapToGrid();
         var offset = (point - transform.position);
         for ( var t = 0f; t < 1; t += Time.deltaTime / inTime ) {
             transform.position += offset * (Time.deltaTime / inTime);
