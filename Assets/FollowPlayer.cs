@@ -17,7 +17,7 @@ public class FollowPlayer : MonoBehaviour {
         var mouseY = Input.mousePosition.y;
         var ratio = mouseY / height;
         var angleOffset = ratio * LookRange - LookRange/2;
-        transform.eulerAngles = new Vector3( m_restAngle - angleOffset, Player.eulerAngles.y, Player.eulerAngles.z );
+        transform.eulerAngles = Player.eulerAngles.WithX( m_restAngle - angleOffset ); 
     }
 
     public void CaptureCameraAngle() {
