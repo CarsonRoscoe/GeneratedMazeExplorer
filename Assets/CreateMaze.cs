@@ -220,15 +220,8 @@ public class CreateMaze : MonoBehaviour {
         bool result;
         try {
             result = (Maze[w, h].type == MazeID.WALL);
-            if ( result ) {
-                print( Maze[w, h] );
-            }
-            else {
-                print( w + " " + h + " " + worldCoordinate.x + " " + worldCoordinate.z + " " + result + "\n" + DateTime.Now.Ticks );
-            }
         }
         catch ( Exception ) {
-            print( "Maze position" + w + " " + h + " out of index" );
             result = false;
         }
         return result;

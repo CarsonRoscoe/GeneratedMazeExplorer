@@ -28,22 +28,6 @@ public static class GameObjectExtensionMethods {
     public static bool HasComponent<T>( this GameObject gameObject ) where T : Component {
         return gameObject.GetComponent<T>() != null;
     }
-
-    public static void SetZRotation( this GameObject gameObject, float zDegrees ) {
-        gameObject.transform.eulerAngles = new Vector3( gameObject.transform.eulerAngles.x, gameObject.transform.eulerAngles.z, zDegrees % 360 );
-    }
-
-    public static void SetYRotation( this GameObject gameObject, float yDegrees ) {
-        gameObject.transform.eulerAngles = new Vector3( gameObject.transform.eulerAngles.x, yDegrees % 360, gameObject.transform.eulerAngles.z );
-    }
-
-    public static void SetXRotation( this GameObject gameObject, float xDegrees ) {
-        gameObject.transform.eulerAngles = new Vector3( xDegrees % 360, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z );
-    }
-
-    public static void SetRotation( this GameObject gameObject, int xDegrees, int yDegrees, int zDegrees ) {
-        gameObject.transform.eulerAngles = new Vector3( xDegrees % 360, yDegrees % 360, zDegrees % 360 );
-    }
 }
 
 public static class TransformExtensionMethods {
@@ -59,8 +43,30 @@ public static class TransformExtensionMethods {
         transform.eulerAngles = new Vector3( xDegrees % 360, transform.eulerAngles.y, transform.eulerAngles.z );
     }
 
-    public static void SetRotation( this Transform transform, int xDegrees, int yDegrees, int zDegrees ) {
+    public static void SetRotation( this Transform transform, float xDegrees, float yDegrees, float zDegrees ) {
         transform.eulerAngles = new Vector3( xDegrees % 360, yDegrees % 360, zDegrees % 360 );
+    }
+
+    public static void SetRelativeRotation( this Transform transform, float xDegrees, float yDegrees, float zDegrees) {
+        var oldX = transform.eulerAngles.x;
+        var oldY = transform.eulerAngles.y;
+        var oldZ = transform.eulerAngles.z;
+        transform.eulerAngles = new Vector3((oldX + xDegrees)%360, (oldY + yDegrees)%360, (oldZ + zDegrees)%360);
+    }
+
+    public static void SetRelativeXRotation( this Transform transform, float xDegrees ) {
+        var oldX = transform.eulerAngles.x;
+        transform.eulerAngles = new Vector3( (oldX + xDegrees) % 360, transform.eulerAngles.y, transform.eulerAngles.z );
+    }
+
+    public static void SetRelativeYRotation( this Transform transform, float yDegrees ) {
+        var oldY = transform.eulerAngles.y;
+        transform.eulerAngles = new Vector3( transform.eulerAngles.x, (oldY + yDegrees) % 360, transform.eulerAngles.z );
+    }
+
+    public static void SetRelativeZRotation( this Transform transform, float zDegrees ) {
+        var oldZ = transform.eulerAngles.z;
+        transform.eulerAngles = new Vector3( transform.eulerAngles.x, transform.eulerAngles.y, (oldZ + zDegrees) % 360 );
     }
 }
 
