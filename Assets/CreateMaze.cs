@@ -160,24 +160,13 @@ public class CreateMaze : MonoBehaviour {
     void DrawMaze() {
         //Load the floor
         var floor = (GameObject)Instantiate( Resources.Load( "Floor" ) );
-        floor.transform.position = new Vector3( MazeWidth - 1, -3f, MazeHeight - 1 );
+        floor.transform.position = new Vector3( MazeWidth - 1, -2.5f, MazeHeight - 1 );
         floor.transform.localScale = new Vector3( MazeWidth * 2, 1, MazeHeight * 2 );
 
         for ( int w = 0; w < MazeWidth; w++ )
             for ( int h = 0; h < MazeHeight; h++ ) {
-                string resource = string.Empty;
                 if ( Maze[w, h].type == MazeID.WALL ) {
-                    if ( w == 0 )
-                        resource = "WestWall";
-                    else if ( w == MazeWidth - 1 )
-                        resource = "EastWall";
-                    else if ( h == 0 )
-                        resource = "NorthWall";
-                    else if ( h == MazeHeight - 1 )
-                        resource = "SouthWall";
-                    else
-                        resource = "StandardWall";
-                    GameObject wall = (GameObject)Instantiate( Resources.Load( resource ) );
+                    GameObject wall = (GameObject)Instantiate( Resources.Load( "StandardWall" ) );
                     wall.transform.position = new Vector3( w * mazeScale, 0, h * mazeScale );
                     Maze[w, h].positionObject = wall;
                     Maze[w, h].Activate(false);
