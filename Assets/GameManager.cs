@@ -35,17 +35,30 @@ public class GameManager : MonoBehaviour {
         GameObject.Find( "Player" ).GetComponent<PlayerMovement>().ResetToStart();
     }
 
-    public void ToggleWalkThroughWalls() {
-        SettingsManager.Instance.WalkThroughWalls = !SettingsManager.Instance.WalkThroughWalls;
+    public void ToggleWalkThroughWalls(bool? toggled = null) {
+        if (toggled.HasValue) {
+            SettingsManager.Instance.WalkThroughWalls = toggled.Value;
+        } else {
+            SettingsManager.Instance.WalkThroughWalls = !SettingsManager.Instance.WalkThroughWalls;
+        }
     }
 
-    public void ToggleDayNight() {
-        m_isDay = !m_isDay;
+    public void ToggleDayNight(bool? toggled = null) {
+        if ( toggled.HasValue ) {
+            m_isDay = toggled.Value;
+        }
+        else {
+            m_isDay = !m_isDay;
+        }
         ReloadWallShaders();
     }
 
-    public void ToggleFog() {
-        m_hasFog = !m_hasFog;
+    public void ToggleFog(bool? toggled = null) {
+        if (toggled.HasValue) {
+            m_hasFog = toggled.Value;
+        } else {
+            m_hasFog = !m_hasFog;
+        }
         ReloadWallShaders();
     }
 
