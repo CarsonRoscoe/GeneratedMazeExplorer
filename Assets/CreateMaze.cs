@@ -87,6 +87,7 @@ public class CreateMaze : MonoBehaviour {
         bool canUp = p.y - 2 > 0 && !Maze[p.x, p.y - 2].visited;
         bool canDown = p.y + 2 < MazeHeight - 1 && !Maze[p.x, p.y + 2].visited;
         int[] around = { 0, 1, 2, 3 };
+
         around = RandomizeArray( around );
         for ( int i = 0; i < 4; i++ )
             switch ( around[i] ) {
@@ -214,12 +215,17 @@ public class CreateMaze : MonoBehaviour {
     }
 
     public bool IsWorldCoordinateOccupied( Vector3 worldCoordinate ) {
-        var w = (int)(worldCoordinate.x / mazeScale);
-        var h = (int)(worldCoordinate.z / mazeScale);
+        var w = (int)Math.Round( (worldCoordinate.x / mazeScale) );
+        var h = (int)Math.Round( (worldCoordinate.z / mazeScale) );
         bool result;
         try {
             result = (Maze[w, h].type == MazeID.WALL);
-            print( worldCoordinate.x + " " + worldCoordinate.z + " " + result + "\n" + DateTime.Now.Ticks );
+            if ( result ) {
+                print( Maze[w, h] );
+            }
+            else {
+                print( w + " " + h + " " + worldCoordinate.x + " " + worldCoordinate.z + " " + result + "\n" + DateTime.Now.Ticks );
+            }
         }
         catch ( Exception ) {
             print( "Maze position" + w + " " + h + " out of index" );
@@ -253,7 +259,7 @@ public class CreateMaze : MonoBehaviour {
             return (c.x == x && c.y == y);
         }
 
-        public string ToString() {
+        public override string ToString() {
             return "x: " + x + " y:" + y;
         }
     }

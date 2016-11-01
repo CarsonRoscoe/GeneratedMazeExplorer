@@ -10,7 +10,6 @@ public class SettingsManager : MonoBehaviour {
     public bool WalkThroughWalls { get; set; }
     public Vector3 PlayerStartPosition { get; set; }
     public Vector3 PlayerStartEuler { get; set; }
-    public Shader ActiveShader { get; set; }
 
     void Awake() {
         if (Instance == null ) {
