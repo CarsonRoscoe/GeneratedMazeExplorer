@@ -4,19 +4,39 @@ using System;
 
 public class PlayerMovement : MonoBehaviour {
     public float RotationSpeed = 5f;
-    public float TurnTime = .25f;
-    private float m_turningStartDirection;
-    private float m_turning = 0;
-    private float m_walking = 0;
+    public float TurnTime = .5f;
     private bool m_blockInput = false;
     [HideInInspector]
     public bool canMove = true;
+    private float m_mouseX;
+    private int m_turnThreshold = 150;
 
     // Update is called once per frame
     void Update() {
-        if (canMove && !m_blockInput ) {
-            if ( !StartTurning( Input.GetAxis( "Horizontal" ) ) ) {
-                StartWalking( Input.GetAxis( "Vertical" ) );
+        if ( canMove && !m_blockInput ) {
+            if ( Application.isMobilePlatform ) {
+                //Move on mobile
+                if ( Input.GetMouseButtonDown( 0 ) ) {
+                    m_mouseX = Input.mousePosition.x;
+                }
+                if ( Input.GetMouseButton( 0 ) ) {
+                    var newMouseX = Input.mousePosition.x;
+                    var dif = (newMouseX - m_mouseX);
+                    if ( dif > m_turnThreshold ) {
+                        m_mouseX = newMouseX;
+                        StartTurning( .5f );
+                    }
+                    else if ( dif < -m_turnThreshold ) {
+                        m_mouseX = newMouseX;
+                        StartTurning( -.5f );
+                    }
+                }
+            }
+            else {
+                //Move on desktop
+                if ( !StartTurning( Input.GetAxis( "Horizontal" ) ) ) {
+                    StartWalking( Input.GetAxis( "Vertical" ) );
+                }
             }
         }
     }
@@ -27,26 +47,29 @@ public class PlayerMovement : MonoBehaviour {
             m_blockInput = true;
             StartCoroutine( RotateMe( Vector3.down * 90, TurnTime ) );
         }
-        else if (direction > 0) {
+        else if ( direction > 0 ) {
             m_blockInput = true;
             StartCoroutine( RotateMe( Vector3.up * 90, TurnTime ) );
-        } else {
+        }
+        else {
             return false;
         }
         return true;
     }
 
-    bool StartWalking( float direction ) {
+    public bool StartWalking( float direction ) {
         if ( direction > 0 ) {
             var moveTo = transform.position + transform.forward * 2;
-            if (!CreateMaze.Instance.IsWorldCoordinateOccupied(moveTo) || SettingsManager.Instance.WalkThroughWalls) {
-                CreateMaze.Instance.CalculatePooling(moveTo);
+            if ( !CreateMaze.Instance.IsWorldCoordinateOccupied( moveTo ) || SettingsManager.Instance.WalkThroughWalls ) {
+                CreateMaze.Instance.CalculatePooling( moveTo );
                 m_blockInput = true;
                 StartCoroutine( WalkMe( moveTo, TurnTime ) );
-            } else {
+            }
+            else {
                 return false;
             }
-        } else {
+        }
+        else {
             return false;
         }
         return true;
@@ -62,7 +85,6 @@ public class PlayerMovement : MonoBehaviour {
         }
         SnapToGrid();
         m_blockInput = false;
-        TakeTurn();
     }
 
     IEnumerator WalkMe( Vector3 point, float inTime ) {

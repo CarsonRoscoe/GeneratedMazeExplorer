@@ -198,18 +198,18 @@ public class CreateMaze : MonoBehaviour {
         var startOffset = Vector3.zero;
         var startFacing = Vector3.zero;
 
-        if ( MazeStart.x == 0 ) {
+        if ( MazeStart.x == 1 ) {
             startOffset = Vector3.left;
             startFacing.y = 90;
         }
-        else if ( MazeStart.x == MazeWidth - 1 ) {
+        else if ( MazeStart.x == MazeWidth - 2 ) {
             startOffset = Vector3.right;
             startFacing.y = -90;
         }
-        else if ( MazeStart.y == 0 ) {
+        else if ( MazeStart.y == 1 ) {
             startOffset = Vector3.back;
         }
-        else if ( MazeStart.y == MazeHeight - 1 ) {
+        else if ( MazeStart.y == MazeHeight - 2 ) {
             startOffset = Vector3.forward;
             startFacing.y = 180;
         }

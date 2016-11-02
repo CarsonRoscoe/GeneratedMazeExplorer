@@ -20,35 +20,37 @@ public class GameManager : MonoBehaviour {
         m_isDay = true;
         m_hasFog = false;
         SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
-  }
+    }
 
     void Update() {
-
         //Check if the user double tapped on mobile
         if ( Input.GetMouseButtonDown( 0 ) ) {
             for ( int i = 0; i < Input.touchCount; i++ ) {
                 if ( Input.GetTouch( i ).phase == TouchPhase.Began ) {
                     if ( Input.GetTouch( i ).tapCount == 2 ) {
-                        ResetGame();
+                        GameObject.FindGameObjectWithTag( "Player" ).GetComponent<PlayerMovement>().StartWalking( 1f );
                     }
                 }
             }
         }
+
+
     }
 
     public void ResetGame() {
         UIManager.Instance.ResetGame();
     }
 
-    public void ToggleWalkThroughWalls(bool? toggled = null) {
-        if (toggled.HasValue) {
+    public void ToggleWalkThroughWalls( bool? toggled = null ) {
+        if ( toggled.HasValue ) {
             SettingsManager.Instance.WalkThroughWalls = toggled.Value;
-        } else {
+        }
+        else {
             SettingsManager.Instance.WalkThroughWalls = !SettingsManager.Instance.WalkThroughWalls;
         }
     }
 
-    public void ToggleDayNight(bool? toggled = null) {
+    public void ToggleDayNight( bool? toggled = null ) {
         if ( toggled.HasValue ) {
             m_isDay = toggled.Value;
         }
@@ -58,10 +60,11 @@ public class GameManager : MonoBehaviour {
         ReloadWallShaders();
     }
 
-    public void ToggleFog(bool? toggled = null) {
-        if (toggled.HasValue) {
+    public void ToggleFog( bool? toggled = null ) {
+        if ( toggled.HasValue ) {
             m_hasFog = toggled.Value;
-        } else {
+        }
+        else {
             m_hasFog = !m_hasFog;
         }
         ReloadWallShaders();
@@ -76,23 +79,23 @@ public class GameManager : MonoBehaviour {
     }
 
     private string DetermineShader() {
-      string shaderName = string.Empty;
-      if ( m_hasFog ) {
-        if ( m_isDay ) {
-          shaderName = "Custom/FogDayShader";
+        string shaderName = string.Empty;
+        if ( m_hasFog ) {
+            if ( m_isDay ) {
+                shaderName = "Custom/FogDayShader";
+            }
+            else {
+                shaderName = "Custom/FogNightShader";
+            }
         }
         else {
-          shaderName = "Custom/FogNightShader";
+            if ( m_isDay ) {
+                shaderName = "Custom/DayShader";
+            }
+            else {
+                shaderName = "Custom/NightShader";
+            }
         }
-      }
-      else {
-        if ( m_isDay ) {
-          shaderName = "Custom/DayShader";
-        }
-        else {
-          shaderName = "Custom/NightShader";
-        }
-      }
-      return shaderName;
+        return shaderName;
     }
 }
