@@ -27,7 +27,8 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void TakeTurn() {
-        foreach(var key in m_turns.Keys) {
+        var keys = m_turns.Keys.ToList();
+        foreach (var key in keys ) {
             try {
                 m_turns[key]();
             } catch (Exception) {
