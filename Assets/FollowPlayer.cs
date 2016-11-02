@@ -26,18 +26,21 @@ public class FollowPlayer : MonoBehaviour {
             }
             if ( Input.GetMouseButton( 0 ) ) {
                 var newMouseY = Input.mousePosition.y;
-                m_distance += (newMouseY - m_mouseY) / 12;
-                if (Mathf.Abs(m_distance) > m_rotateThreshold) {
+                m_distance += (newMouseY - m_mouseY) / 40;
+                if ( Mathf.Abs( m_distance ) > m_rotateThreshold ) {
                     var dist = 0f;
-                    if (m_distance > 0) {
+                    if ( m_distance > 0 ) {
                         dist = m_distance - m_rotateThreshold;
-                    } else {
+                    }
+                    else {
                         dist = m_distance + m_rotateThreshold;
                     }
                     m_angleOffset = (m_angleOffset + dist).MinMax( -LookRange, LookRange );
                     transform.eulerAngles = Player.eulerAngles.WithX( m_restAngle - m_angleOffset );
                     m_mouseY = newMouseY;
                 }
+            } else {
+                transform.eulerAngles = Player.eulerAngles.WithX( m_restAngle - m_angleOffset );
             }
         }
         //Look up/down on desktop

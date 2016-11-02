@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour {
         SettingsManager.Instance.GameOver = false;
     }
 
+    void Start() {
+        if ( Application.isMobilePlatform )
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
+
     void Update() {
         //Check if the user double tapped on mobile
         if ( Input.GetMouseButtonDown( 0 ) ) {

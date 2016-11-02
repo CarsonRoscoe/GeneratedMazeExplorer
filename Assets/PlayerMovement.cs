@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class PlayerMovement : HumanMovement {
-    
+
     private float m_mouseX;
     private int m_turnThreshold = 150;
 
@@ -19,11 +19,9 @@ public class PlayerMovement : HumanMovement {
                     var newMouseX = Input.mousePosition.x;
                     var dif = (newMouseX - m_mouseX);
                     if ( dif > m_turnThreshold ) {
-                        m_mouseX = newMouseX;
                         StartTurning( .5f );
                     }
                     else if ( dif < -m_turnThreshold ) {
-                        m_mouseX = newMouseX;
                         StartTurning( -.5f );
                     }
                 }
