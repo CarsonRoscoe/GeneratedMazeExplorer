@@ -19,7 +19,7 @@ public class FollowPlayer : MonoBehaviour {
         transform.position = Player.position;
 
         //Look up/down on mobile
-        if ( !Application.isMobilePlatform ) {
+        if ( Application.isMobilePlatform ) {
             if ( Input.GetMouseButtonDown( 0 ) ) {
                 m_mouseY = Input.mousePosition.y;
                 m_distance = 0;

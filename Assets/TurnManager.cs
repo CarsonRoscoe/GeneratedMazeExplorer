@@ -22,7 +22,7 @@ public class TurnManager : MonoBehaviour {
         m_turns.Add( ID, callback );
     }
 
-    public void Unsubscribe( int ID, Action callback) {
+    public void Unsubscribe( int ID) {
         m_turns.Remove( ID );
     }
 

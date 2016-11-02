@@ -151,6 +151,13 @@ public static class ListExtensionMethods {
         list.RemoveAt( index );
         return item;
     }
+
+    public static List<T> With<T>( this List<T> list, params T[] prams ) {
+        foreach(var param in prams ) {
+            list.Add( param );
+        }
+        return list;
+    }
 }
 
 public static class StringExtensionMethods {
@@ -164,3 +171,4 @@ public static class StringExtensionMethods {
         return string.IsNullOrEmpty( value );
     }
 }
+

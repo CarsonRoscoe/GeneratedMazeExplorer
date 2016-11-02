@@ -2,12 +2,8 @@
 using System.Collections;
 using System;
 
-public class PlayerMovement : MonoBehaviour {
-    public float RotationSpeed = 5f;
-    public float TurnTime = .5f;
-    private bool m_blockInput = false;
-    [HideInInspector]
-    public bool canMove = true;
+public class PlayerMovement : HumanMovement {
+    
     private float m_mouseX;
     private int m_turnThreshold = 150;
 
@@ -42,70 +38,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 
-    bool StartTurning( float direction ) {
-        if ( direction < 0 ) {
-            m_blockInput = true;
-            StartCoroutine( RotateMe( Vector3.down * 90, TurnTime ) );
-        }
-        else if ( direction > 0 ) {
-            m_blockInput = true;
-            StartCoroutine( RotateMe( Vector3.up * 90, TurnTime ) );
-        }
-        else {
-            return false;
-        }
-        return true;
-    }
-
-    public bool StartWalking( float direction ) {
-        if ( direction > 0 ) {
-            var moveTo = transform.position + transform.forward * 2;
-            if ( !CreateMaze.Instance.IsWorldCoordinateOccupied( moveTo ) || SettingsManager.Instance.WalkThroughWalls ) {
-                CreateMaze.Instance.CalculatePooling( moveTo );
-                m_blockInput = true;
-                StartCoroutine( WalkMe( moveTo, TurnTime ) );
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            return false;
-        }
-        return true;
-    }
-
-    IEnumerator RotateMe( Vector3 byAngles, float inTime ) {
-        SnapToGrid();
-        var fromAngle = transform.rotation;
-        var toAngle = Quaternion.Euler( transform.eulerAngles + byAngles );
-        for ( var t = 0f; t < 1; t += Time.deltaTime / inTime ) {
-            transform.rotation = Quaternion.Lerp( fromAngle, toAngle, t );
-            yield return null;
-        }
-        SnapToGrid();
-        m_blockInput = false;
-    }
-
-    IEnumerator WalkMe( Vector3 point, float inTime ) {
-        SnapToGrid();
-        var offset = (point - transform.position);
-        for ( var t = 0f; t < 1; t += Time.deltaTime / inTime ) {
-            transform.position += offset * (Time.deltaTime / inTime);
-            yield return null;
-        }
-        m_blockInput = false;
-        SnapToGrid();
+    protected override IEnumerator WalkMe( Vector3 point, float inTime ) {
+        yield return base.WalkMe( point, inTime );
         TakeTurn();
-    }
-
-    void SnapToGrid() {
-        var x = (int)Math.Round( transform.position.x );
-        var z = (int)Math.Round( transform.position.z );
-        transform.position = new Vector3( x, transform.position.y, z );
-
-        var yRotation = Mathf.Round( transform.rotation.eulerAngles.y / 90 ) * 90;
-        transform.eulerAngles = new Vector3( 0, yRotation, 0 );
     }
 
     void TakeTurn() {
