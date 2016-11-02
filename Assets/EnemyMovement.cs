@@ -28,6 +28,10 @@ public class EnemyMovement : HumanMovement {
         m_anim.Play();
     }
 
+    public void ClearPath() {
+        m_coordinates = null;
+    }
+
     private Direction DetermineFacing( Vector2 from, Vector2 to ) {
         if ( from.x == to.x )
             if ( from.y < to.y )

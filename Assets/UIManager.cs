@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour {
 
     public void ResetGame() {
         EndGameText.enabled = false;
+        GameObject.FindGameObjectWithTag( "Enemy" ).GetComponent<EnemyMovement>().ClearPath();
         GameObject.FindGameObjectWithTag( "Player" ).GetComponent<PlayerMovement>().canMove = true;
         CreateMaze.Instance.ResetMaze();
         SettingsManager.Instance.GameOver = false;
