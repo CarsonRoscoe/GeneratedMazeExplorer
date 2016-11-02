@@ -20,11 +20,6 @@ public class EnemyMovement : HumanMovement {
         TurnManager.Instance.Unsubscribe( GetInstanceID() );
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     public void StopWalkingAnimation() {
         m_anim.Stop();
     }
@@ -65,6 +60,7 @@ public class EnemyMovement : HumanMovement {
                 SnapToGrid();
                 var fromAngle = transform.rotation;
                 var toAngle = Quaternion.Euler( transform.eulerAngles + Vector3.down * 90 );
+                StartWalkingAnimation();
                 for ( var t = 0f; t < 1; t += Time.deltaTime / TurnTime ) {
                     transform.rotation = Quaternion.Lerp( fromAngle, toAngle, t );
                     yield return null;
@@ -76,6 +72,7 @@ public class EnemyMovement : HumanMovement {
                 SnapToGrid();
                 var fromAngle = transform.rotation;
                 var toAngle = Quaternion.Euler( transform.eulerAngles + Vector3.up * 90 );
+                StartWalkingAnimation();
                 for ( var t = 0f; t < 1; t += Time.deltaTime / TurnTime ) {
                     transform.rotation = Quaternion.Lerp( fromAngle, toAngle, t );
                     yield return null;
@@ -85,6 +82,7 @@ public class EnemyMovement : HumanMovement {
             }
         }
         var moveTo = transform.position + transform.forward * 2;
+        StartWalkingAnimation();
         SnapToGrid();
         var offset = (moveTo - transform.position);
         for ( var t = 0f; t < 1; t += Time.deltaTime / TurnTime ) {
@@ -112,6 +110,12 @@ public class EnemyMovement : HumanMovement {
         var coordinate = m_coordinates.Pop();
 
         StartCoroutine( MoveOne( coordinate ) );
+    }
+
+    void OnCollisionEnter( Collision c ) {
+        if ( c.gameObject.tag == "Player" ) {
+            UIManager.Instance.EndGame();
+        }
     }
 
     private List<float> FindTurningDifference( Direction from, Direction to ) {

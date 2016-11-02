@@ -34,12 +34,14 @@ public class UIManager : MonoBehaviour {
     public void EndGame() {
         EndGameText.enabled = true;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().canMove = false;
+        SettingsManager.Instance.GameOver = true;
     }
 
     public void ResetGame() {
         EndGameText.enabled = false;
         GameObject.FindGameObjectWithTag( "Player" ).GetComponent<PlayerMovement>().canMove = true;
         CreateMaze.Instance.ResetMaze();
+        SettingsManager.Instance.GameOver = false;
     }
 
     public void ToggleFog(bool toggled) {

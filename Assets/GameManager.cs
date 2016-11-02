@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
         m_isDay = true;
         m_hasFog = false;
         SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
+        SettingsManager.Instance.GameOver = false;
     }
 
     void Update() {
