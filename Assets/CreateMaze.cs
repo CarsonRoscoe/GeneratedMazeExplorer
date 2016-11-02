@@ -33,6 +33,8 @@ public class CreateMaze : MonoBehaviour {
         CreateMazeBranches();
         DrawMaze();
         InitPlayer();
+        AStarPath pathfinder = new AStarPath(Maze, MazeStart, MazeEnd, MazeWidth, MazeHeight);
+        pathfinder.FindPath();
     }
 
     // Update is called once per frame
@@ -296,6 +298,10 @@ public class CreateMaze : MonoBehaviour {
         public MazeID type = MazeID.WALL;
         public Vector3 position { get { return new Vector3( x, 0, y ); } }
         public GameObject positionObject;
+        public int Heuristic;
+        public const int cost = 10;
+        public int costToGetHere = Int32.MaxValue;
+        public Coordinate parent = null;
 
 
         public Coordinate( int x, int y ) {
@@ -304,6 +310,7 @@ public class CreateMaze : MonoBehaviour {
             this.visited = false;
             this.type = MazeID.WALL;
             this.positionObject = null;
+            this.Heuristic = 0;
         }
 
         public Coordinate( int x, int y, MazeID id ) {
@@ -312,6 +319,7 @@ public class CreateMaze : MonoBehaviour {
             this.visited = false;
             this.type = id;
             this.positionObject = null;
+            this.Heuristic = 0;
         }
 
         public bool Equals( Coordinate c ) {
@@ -325,6 +333,91 @@ public class CreateMaze : MonoBehaviour {
         public void Activate(bool active) {
             if (positionObject != null)
                 positionObject.SetActive(active);
+        }
+
+    }
+
+    private class AStarPath {
+        Coordinate[,] maze;
+        Coordinate start;
+        Coordinate end;
+        int mazeWidth;
+        int mazeHeight;
+
+        private List<Coordinate> openSet = new List<Coordinate>();
+        private List<Coordinate> closedSet = new List<Coordinate>();
+
+        public AStarPath(Coordinate [,] maze, Coordinate start, Coordinate end, int mazeWidth, int mazeHeight) {
+            this.maze = maze;
+            this.start = start;
+            this.end = end;
+            this.mazeWidth = mazeWidth;
+            this.mazeHeight = mazeHeight;
+        }
+
+        public Stack<Coordinate> FindPath() {
+            openSet.Clear();
+            closedSet.Clear();
+            start.Heuristic = calculateHeuristic(start);
+            start.costToGetHere = 0;
+            closedSet.Add(start);
+            AddSurroundingCoordinates(closedSet[closedSet.Count - 1]);
+            do {
+                int index = 0;
+                int lowestValue = int.MaxValue;
+                for (int i = 0; i < openSet.Count; i++) {
+                    int thisVal = openSet[i].Heuristic + openSet[i].costToGetHere;
+                    if (lowestValue > thisVal) {
+                        lowestValue = thisVal;
+                        index = i;
+                    }
+                }
+                closedSet.Add(openSet[index]);
+                if (openSet[index].Equals(end))
+                    break;
+                else
+                    openSet.RemoveAt(index);
+                AddSurroundingCoordinates(closedSet[closedSet.Count - 1]);
+            } while (openSet.Count > 0);
+            
+            Stack<Coordinate> pathList = new Stack<Coordinate>();
+            pathList.Push(closedSet[closedSet.Count - 1]);
+            while(!pathList.Peek().Equals(start) && pathList.Peek().parent != null) {
+                pathList.Push(pathList.Peek().parent);
+            }
+            return pathList;
+        }
+
+        private void AddSurroundingCoordinates(Coordinate c) {
+            if (c.x - 1 >= 0 && maze[c.x - 1, c.y].type != MazeID.WALL && maze[c.x - 1, c.y].parent == null) {
+                maze[c.x - 1, c.y].Heuristic = calculateHeuristic(maze[c.x - 1, c.y]);
+                maze[c.x - 1, c.y].costToGetHere = c.costToGetHere + Coordinate.cost;
+                maze[c.x - 1, c.y].parent = c;
+                openSet.Add(maze[c.x - 1, c.y]);
+            }
+            if (c.x + 1 <= mazeWidth - 1 && maze[c.x + 1, c.y].type != MazeID.WALL && maze[c.x + 1, c.y].parent == null) {
+                maze[c.x + 1, c.y].Heuristic = calculateHeuristic(maze[c.x + 1, c.y]);
+                maze[c.x + 1, c.y].costToGetHere = c.costToGetHere + Coordinate.cost;
+                maze[c.x + 1, c.y].parent = c;
+                openSet.Add(maze[c.x + 1, c.y]);
+            }
+            if (c.y - 1 >= 0 && maze[c.x, c.y - 1].type != MazeID.WALL && maze[c.x, c.y - 1].parent == null) {
+                maze[c.x, c.y - 1].Heuristic = calculateHeuristic(maze[c.x, c.y - 1]);
+                maze[c.x, c.y - 1].costToGetHere = c.costToGetHere + Coordinate.cost;
+                maze[c.x, c.y - 1].parent = c;
+                openSet.Add(maze[c.x, c.y - 1]);
+            }
+            if (c.y + 1 <= mazeHeight - 1 && maze[c.x, c.y + 1].type != MazeID.WALL && maze[c.x, c.y + 1].parent == null) {
+                maze[c.x, c.y + 1].Heuristic = calculateHeuristic(maze[c.x, c.y + 1]);
+                maze[c.x, c.y + 1].costToGetHere = c.costToGetHere + Coordinate.cost;
+                maze[c.x, c.y + 1].parent = c;
+                openSet.Add(maze[c.x, c.y + 1]);
+            }
+
+        }
+
+        private int calculateHeuristic(Coordinate c) {
+            return Math.Abs(c.x - end.x) + Math.Abs(c.y - end.y);
         }
 
     }
