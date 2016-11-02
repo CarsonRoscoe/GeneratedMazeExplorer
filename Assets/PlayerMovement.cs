@@ -47,6 +47,18 @@ public class PlayerMovement : HumanMovement {
         TurnManager.Instance.TakeTurn();
     }
 
+
+    public override bool StartWalking( float direction ) {
+        if ( direction > 0 ) {
+            var moveTo = transform.position + transform.forward * 2;
+            if ( !CreateMaze.Instance.IsWorldCoordinateOccupied( moveTo ) || SettingsManager.Instance.WalkThroughWalls ) {
+                CreateMaze.Instance.CalculatePooling( moveTo );
+            }
+            print( string.Format( "Player Position: {0}", CreateMaze.Instance.GetWorldPoint( transform.position ).ToString() ) );
+        }
+        return base.StartWalking( direction );
+    }
+
     public void ResetToStart() {
         transform.position = SettingsManager.Instance.PlayerStartPosition;
         transform.eulerAngles = SettingsManager.Instance.PlayerStartEuler;

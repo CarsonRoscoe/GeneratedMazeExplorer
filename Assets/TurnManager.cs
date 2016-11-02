@@ -31,7 +31,8 @@ public class TurnManager : MonoBehaviour {
         foreach (var key in keys ) {
             try {
                 m_turns[key]();
-            } catch (Exception) {
+            } catch (Exception e) {
+                print( e );
                 m_turns.Remove( key );
             }
         }

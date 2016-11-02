@@ -27,11 +27,10 @@ public class HumanMovement : MonoBehaviour {
         return true;
     }
 
-    public bool StartWalking( float direction ) {
+    public virtual bool StartWalking( float direction ) {
         if ( direction > 0 ) {
             var moveTo = transform.position + transform.forward * 2;
             if ( !CreateMaze.Instance.IsWorldCoordinateOccupied( moveTo ) || SettingsManager.Instance.WalkThroughWalls ) {
-                CreateMaze.Instance.CalculatePooling( moveTo );
                 m_blockInput = true;
                 StartCoroutine( WalkMe( moveTo, TurnTime ) );
             }
