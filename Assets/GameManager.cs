@@ -40,7 +40,13 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Home)) {
+            ResetGame();
+        }
 
+        if (Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetKeyDown(KeyCode.E)) {
+            ToggleWalkThroughWalls();
+        }
     }
 
     public void ResetGame() {
