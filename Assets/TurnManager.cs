@@ -22,15 +22,17 @@ public class TurnManager : MonoBehaviour {
         m_turns.Add( ID, callback );
     }
 
-    public void Unsubscribe( int ID, Action callback) {
+    public void Unsubscribe( int ID) {
         m_turns.Remove( ID );
     }
 
     public void TakeTurn() {
-        foreach(var key in m_turns.Keys) {
+        var keys = m_turns.Keys.ToList();
+        foreach (var key in keys ) {
             try {
                 m_turns[key]();
-            } catch (Exception) {
+            } catch (Exception e) {
+                print( e );
                 m_turns.Remove( key );
             }
         }

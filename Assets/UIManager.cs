@@ -34,23 +34,26 @@ public class UIManager : MonoBehaviour {
     public void EndGame() {
         EndGameText.enabled = true;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().canMove = false;
+        SettingsManager.Instance.GameOver = true;
     }
 
     public void ResetGame() {
         EndGameText.enabled = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().canMove = true;
+        GameObject.FindGameObjectWithTag( "Enemy" ).GetComponent<EnemyMovement>().ClearPath();
+        GameObject.FindGameObjectWithTag( "Player" ).GetComponent<PlayerMovement>().canMove = true;
         CreateMaze.Instance.ResetMaze();
+        SettingsManager.Instance.GameOver = false;
     }
 
     public void ToggleFog(bool toggled) {
-
+        GameManager.Instance.ToggleFog();
     }
 
     public void ToggleDayNight(bool toggled) {
-
+        GameManager.Instance.ToggleDayNight();
     }
 
     public void ToggleClipping(bool toggled) {
-
+        GameManager.Instance.ToggleWalkThroughWalls();
     }
 }

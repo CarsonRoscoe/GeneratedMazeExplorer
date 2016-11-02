@@ -1,0 +1,107 @@
+Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4600 (ID=0x416)
+    Vendor:   Intel
+    VRAM:     1136 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.056 seconds
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 50Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.762781 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 2b30 -> priority: 1 
+  Thread -> id: 1270 -> priority: 1 
+Player Position: (57.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (58.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (59.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (59.0, 98.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (59.0, 97.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (59.0, 96.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (59.0, 95.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (60.0, 95.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (61.0, 95.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (61.0, 96.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (61.0, 97.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (61.0, 98.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (61.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (62.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (63.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (64.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (65.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (66.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (67.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player Position: (68.0, 99.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+

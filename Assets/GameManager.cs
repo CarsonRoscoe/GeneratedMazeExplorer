@@ -19,54 +19,89 @@ public class GameManager : MonoBehaviour {
         }
         m_isDay = true;
         m_hasFog = false;
+        SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
+        SettingsManager.Instance.GameOver = false;
+    }
+
+    void Start() {
+        if ( Application.isMobilePlatform )
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.O)) {
-            ToggleDayNight();
+        //Check if the user double tapped on mobile
+        if ( Input.GetMouseButtonDown( 0 ) ) {
+            for ( int i = 0; i < Input.touchCount; i++ ) {
+                if ( Input.GetTouch( i ).phase == TouchPhase.Began ) {
+                    if ( Input.GetTouch( i ).tapCount == 2 ) {
+                        GameObject.FindGameObjectWithTag( "Player" ).GetComponent<PlayerMovement>().StartWalking( 1f );
+                    }
+                }
+            }
         }
-        if (Input.GetKeyDown(KeyCode.P )) {
-            ToggleFog();
+
+
+    }
+
+    public void ResetGame() {
+        UIManager.Instance.ResetGame();
+    }
+
+    public void ToggleWalkThroughWalls( bool? toggled = null ) {
+        if ( toggled.HasValue ) {
+            SettingsManager.Instance.WalkThroughWalls = toggled.Value;
+        }
+        else {
+            SettingsManager.Instance.WalkThroughWalls = !SettingsManager.Instance.WalkThroughWalls;
         }
     }
 
-    public void ResetRound() {
-        GameObject.Find( "Player" ).GetComponent<PlayerMovement>().ResetToStart();
-    }
-
-    public void ToggleWalkThroughWalls() {
-        SettingsManager.Instance.WalkThroughWalls = !SettingsManager.Instance.WalkThroughWalls;
-    }
-
-    public void ToggleDayNight() {
-        m_isDay = !m_isDay;
+    public void ToggleDayNight( bool? toggled = null ) {
+        if ( toggled.HasValue ) {
+            m_isDay = toggled.Value;
+        }
+        else {
+            m_isDay = !m_isDay;
+        }
         ReloadWallShaders();
     }
 
-    public void ToggleFog() {
-        m_hasFog = !m_hasFog;
+    public void ToggleFog( bool? toggled = null ) {
+        if ( toggled.HasValue ) {
+            m_hasFog = toggled.Value;
+        }
+        else {
+            m_hasFog = !m_hasFog;
+        }
         ReloadWallShaders();
     }
 
     private void ReloadWallShaders() {
+        SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
+
+        foreach ( var wall in GameObject.FindGameObjectsWithTag( "Wall" ) ) {
+            wall.GetComponent<RenderSurface>().Redraw();
+        }
+    }
+
+    private string DetermineShader() {
         string shaderName = string.Empty;
-        if (m_hasFog) {
-            if (m_isDay) {
+        if ( m_hasFog ) {
+            if ( m_isDay ) {
                 shaderName = "Custom/FogDayShader";
-            } else {
+            }
+            else {
                 shaderName = "Custom/FogNightShader";
             }
-        } else {
-            if (m_isDay) {
+        }
+        else {
+            if ( m_isDay ) {
                 shaderName = "Custom/DayShader";
-            } else {
+            }
+            else {
                 shaderName = "Custom/NightShader";
             }
         }
-        Shader shader = Shader.Find( shaderName );
-
-        foreach ( var wall in GameObject.FindGameObjectsWithTag( "Wall" ) ) {
-            wall.GetComponent<Renderer>().material.shader = shader;
-        }
+        return shaderName;
     }
 }
