@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class FollowPlayer : MonoBehaviour {
     public Transform Player;
@@ -10,8 +11,11 @@ public class FollowPlayer : MonoBehaviour {
     private float m_rotateThreshold = 20;
     private float m_distance;
 
+    private float m_joystickY;
+
     void Start() {
         CaptureCameraAngle();
+        m_joystickY = Screen.height / 2;
     }
 
     // Update is called once per frame
@@ -45,11 +49,21 @@ public class FollowPlayer : MonoBehaviour {
         }
         //Look up/down on desktop
         else {
-            var height = Screen.height;
-            var mouseY = Input.mousePosition.y;
-            var ratio = mouseY / height;
-            m_angleOffset = ratio * LookRange - LookRange / 2;
-            transform.eulerAngles = Player.eulerAngles.WithX( m_restAngle - m_angleOffset );
+            if (Input.GetJoystickNames().Length == 0) {
+                var height = Screen.height;
+                var mouseY = Input.mousePosition.y;
+                var ratio = mouseY / height;
+                m_angleOffset = ratio * LookRange - LookRange / 2;
+                transform.eulerAngles = Player.eulerAngles.WithX( m_restAngle - m_angleOffset );
+            } else {
+                var mouseChange = Input.GetAxis( "RightJoystickY" );
+
+                m_joystickY += mouseChange * 2.5f;
+
+                var ratio = m_joystickY / Screen.height;
+                m_angleOffset = ratio * LookRange - LookRange / 2;
+                transform.eulerAngles = Player.eulerAngles.WithX( m_restAngle - m_angleOffset );
+            }
         }
     }
 
