@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
     public Toggle ToggleFogButton;
     public Toggle ToggleDayNightButton;
     public Toggle ToggleWallClippingButton;
+    public Toggle ToggleSoundButton;
 
     void Awake() {
         if (Instance == null) {
@@ -55,5 +56,10 @@ public class UIManager : MonoBehaviour {
 
     public void ToggleClipping(bool toggled) {
         GameManager.Instance.ToggleWalkThroughWalls();
+    }
+
+    public void ToggleSound() {
+        bool toggled = ToggleSoundButton.isOn;
+        AudioManager.Instance.ToggleMusic(toggled);
     }
 }

@@ -58,7 +58,7 @@ public class EnemyMovement : HumanMovement {
         return FindTurningDifference( facing, needToFace );
     }
 
-    private IEnumerator MoveOne( CreateMaze.Coordinate coordinate ) {
+    private IEnumerator MoveOne(CreateMaze.Coordinate coordinate ) {
         foreach ( var turn in DetermineIfTurn( coordinate ) ) {
             if ( turn < 0 ) {
                 SnapToGrid();
@@ -95,6 +95,8 @@ public class EnemyMovement : HumanMovement {
         }
         m_blockInput = false;
         SnapToGrid();
+        DataHandler.instance.data.enemy.toCoordinate(moveTo);
+        DataHandler.instance.saveData();
     }
 
     public Stack<CreateMaze.Coordinate> CalculatePath() {
@@ -112,6 +114,7 @@ public class EnemyMovement : HumanMovement {
             }
         }
         var coordinate = m_coordinates.Pop();
+        AudioManager.Instance.CalculateMusicVolume(DistanceCalculator.Instance.calculateDistance());
 
         StartCoroutine( MoveOne( coordinate ) );
     }

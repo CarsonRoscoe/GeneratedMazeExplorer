@@ -51,8 +51,14 @@ public class PlayerMovement : HumanMovement {
             var moveTo = transform.position + transform.forward * 2;
             if ( !CreateMaze.Instance.IsWorldCoordinateOccupied( moveTo ) || SettingsManager.Instance.WalkThroughWalls ) {
                 CreateMaze.Instance.CalculatePooling( moveTo );
+                AudioManager.Instance.playSFX(AudioManager.SFXType.STEP);
+                AudioManager.Instance.CalculateMusicVolume(DistanceCalculator.Instance.calculateDistance());
+                DataHandler.instance.data.player.toCoordinate(moveTo);
+                DataHandler.instance.saveData();
+            } else {
+                AudioManager.Instance.playSFX(AudioManager.SFXType.WALL);
             }
-            print( string.Format( "Player Position: {0}", CreateMaze.Instance.GetWorldPoint( transform.position ).ToString() ) );
+            //print( string.Format( "Player Position: {0}", CreateMaze.Instance.GetWorldPoint( transform.position ).ToString() ) );
         }
         return base.StartWalking( direction );
     }

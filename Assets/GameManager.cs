@@ -7,8 +7,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
-    private bool m_isDay;
-    private bool m_hasFog;
+    public bool isDay;
+    public bool hasFog;
 
     void Awake() {
         if ( Instance == null ) {
@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour {
         else {
             Destroy( this );
         }
-        m_isDay = true;
-        m_hasFog = false;
+        isDay = true;
+        hasFog = false;
         SettingsManager.Instance.ActiveShader = Shader.Find( DetermineShader() );
         SettingsManager.Instance.GameOver = false;
     }
@@ -64,21 +64,23 @@ public class GameManager : MonoBehaviour {
 
     public void ToggleDayNight( bool? toggled = null ) {
         if ( toggled.HasValue ) {
-            m_isDay = toggled.Value;
+            isDay = toggled.Value;
         }
         else {
-            m_isDay = !m_isDay;
+            isDay = !isDay;
         }
+        AudioManager.Instance.ToggleMusic(AudioManager.Instance.playMusic);
         ReloadWallShaders();
     }
 
     public void ToggleFog( bool? toggled = null ) {
         if ( toggled.HasValue ) {
-            m_hasFog = toggled.Value;
+            hasFog = toggled.Value;
         }
         else {
-            m_hasFog = !m_hasFog;
+            hasFog = !hasFog;
         }
+        AudioManager.Instance.CalculateMusicVolume(DistanceCalculator.Instance.calculateDistance());
         ReloadWallShaders();
     }
 
@@ -92,8 +94,8 @@ public class GameManager : MonoBehaviour {
 
     private string DetermineShader() {
         string shaderName = string.Empty;
-        if ( m_hasFog ) {
-            if ( m_isDay ) {
+        if ( hasFog ) {
+            if ( isDay ) {
                 shaderName = "Custom/FogDayShader";
             }
             else {
@@ -101,7 +103,7 @@ public class GameManager : MonoBehaviour {
             }
         }
         else {
-            if ( m_isDay ) {
+            if ( isDay ) {
                 shaderName = "Custom/DayShader";
             }
             else {
