@@ -1,3 +1,13 @@
+Mono path[0] = 'C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data/Managed'
+Mono path[1] = 'C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data/Mono'
+Mono config path = 'C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data/Mono/etc'
+PlayerConnection initialized from C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Runnables/Maze_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55393
+Multi-casting "[IP] 192.168.56.1 [Port] 55393 [Flags] 3 [Guid] 2278972060 [EditorId] 2884498076 [Version] 1048832 [Id] WindowsPlayer(DESKTOP-PHN17LP) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [192.168.56.1:55393]...
+PlayerConnection accepted from [142.232.143.251] handle:0x330
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56060
+PlayerConnection already initialized - listening to [192.168.56.1:55393]
 Initialize engine version: 5.4.1f1 (649f48bbbf0f)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -14,94 +24,104 @@ Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnab
 Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.056 seconds
+- Completed reload, in  0.050 seconds
 Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Runnables\Maze_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 50Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.762781 ms
+UnloadTime: 0.994647 ms
+Maze: 
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+CreateMaze:InitAll(MazeData) (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:31)
+CreateMaze:Start() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:27)
+ 
+(Filename: C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Assets/CreateMaze.cs Line: 31)
+
+MAZE NOW: CreateMaze+MazeData
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+CreateMaze:InitAll(MazeData) (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:53)
+CreateMaze:Start() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:27)
+ 
+(Filename: C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Assets/CreateMaze.cs Line: 53)
+
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2b30 -> priority: 1 
-  Thread -> id: 1270 -> priority: 1 
-Player Position: (57.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+  Thread -> id: 3b0 -> priority: 1 
+  Thread -> id: 17e0 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 8.934565 ms
+System memory in use before: 58.4 MB.
+System memory in use after: 17.7 MB.
 
-Player Position: (58.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+Unloading 139 unused Assets to reduce memory usage. Loaded Objects now: 918.
+Total: 6.405492 ms (FindLiveObjects: 0.085841 ms CreateObjectMapping: 0.082576 ms MarkObjects: 0.780509 ms  DeleteObjects: 5.446301 ms)
 
-Player Position: (59.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.494303 ms
+System memory in use before: 57.9 MB.
+System memory in use after: 57.8 MB.
 
-Player Position: (59.0, 98.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+Unloading 86 unused Assets to reduce memory usage. Loaded Objects now: 474.
+Total: 1.221382 ms (FindLiveObjects: 0.055050 ms CreateObjectMapping: 0.050385 ms MarkObjects: 0.629352 ms  DeleteObjects: 0.484260 ms)
 
-Player Position: (59.0, 97.0)
+Maze: CreateMaze+MazeData
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+CreateMaze:InitAll(MazeData) (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:31)
+CreateMaze:Start() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:27)
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+(Filename: C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Assets/CreateMaze.cs Line: 31)
 
-Player Position: (59.0, 96.0)
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.145583 ms
+System memory in use before: 58.6 MB.
+System memory in use after: 17.8 MB.
+
+Unloading 212 unused Assets to reduce memory usage. Loaded Objects now: 918.
+Total: 6.380766 ms (FindLiveObjects: 0.082109 ms CreateObjectMapping: 0.062515 ms MarkObjects: 0.784241 ms  DeleteObjects: 5.450500 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.826008 ms
+System memory in use before: 58.0 MB.
+System memory in use after: 57.9 MB.
+
+Unloading 86 unused Assets to reduce memory usage. Loaded Objects now: 474.
+Total: 1.422924 ms (FindLiveObjects: 0.069513 ms CreateObjectMapping: 0.046186 ms MarkObjects: 0.745052 ms  DeleteObjects: 0.560772 ms)
+
+Maze: CreateMaze+MazeData
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+CreateMaze:InitAll(MazeData) (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:31)
+CreateMaze:Start() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:27)
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+(Filename: C:/Users/Carson/Documents/GitHub/GeneratedMazeExplorer/Assets/CreateMaze.cs Line: 31)
 
-Player Position: (59.0, 95.0)
+System.IndexOutOfRangeException: Array index is out of range.
+  at CreateMaze.FindRandomPath (Vector3 objectPosition) [0x00000] in C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\CreateMaze.cs:58 
+  at EnemyMovement.CalculatePath () [0x00000] in C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\EnemyMovement.cs:103 
+  at EnemyMovement.Move () [0x00007] in C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\EnemyMovement.cs:109 
+  at TurnManager.TakeTurn () [0x00025] in C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\TurnManager.cs:33 
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+UnityEngine.MonoBehaviour:print(Object) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\UnityEngineMonoBehaviourBindings.gen.cs:107)
+TurnManager:TakeTurn() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\TurnManager.cs:35)
+PlayerMovement:TakeTurn() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\PlayerMovement.cs:68)
+<WalkMe>c__Iterator4:MoveNext() (at C:\Users\Carson\Documents\GitHub\GeneratedMazeExplorer\Assets\PlayerMovement.cs:64)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineMonoBehaviourBindings.gen.cs Line: 107)
 
-Player Position: (60.0, 95.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (61.0, 95.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (61.0, 96.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (61.0, 97.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (61.0, 98.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (61.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (62.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (63.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (64.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (65.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (66.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (67.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Player Position: (68.0, 99.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
+Waiting for finish

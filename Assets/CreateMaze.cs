@@ -6,7 +6,7 @@ using System;
 public class CreateMaze : MonoBehaviour {
     public static CreateMaze Instance;
 
-    private Coordinate[,] Maze;
+    public Coordinate[,] Maze;
     private Coordinate MazeStart;
     private Coordinate MazeEnd;
     public enum MazeID { WALL, SPACE };
@@ -184,14 +184,20 @@ public class CreateMaze : MonoBehaviour {
 
     void DrawMaze() {
         //Load the floor
-
+        var doorFound = false;
         for (int w = 0; w < MazeWidth; w++)
             for (int h = 0; h < MazeHeight; h++) {
-                if (Maze[w, h].type == MazeID.WALL) {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("StandardWall"));
-                    wall.transform.position = new Vector3(w * mazeScale, 0, h * mazeScale);
+                if ( Maze[w, h].type == MazeID.WALL ) {
+                    GameObject wall = (GameObject)Instantiate( Resources.Load( "StandardWall" ) );
+                    wall.transform.position = new Vector3( w * mazeScale, 0, h * mazeScale );
                     Maze[w, h].positionObject = wall;
-                    Maze[w, h].Activate(false);
+                    Maze[w, h].Activate( false );
+                    if ( !doorFound ) {
+                        if (Math.Round(UnityEngine.Random.value * 10) == 5.0) {
+                            doorFound = true;
+                            wall.GetComponent<RenderWall>().BecomeDoor();
+                        }
+                    }
                 } else {
                     var floor = (GameObject)Instantiate(Resources.Load("Floor"));
                     floor.transform.position = new Vector3(w * mazeScale, -2.5f, h * mazeScale);
@@ -258,11 +264,16 @@ public class CreateMaze : MonoBehaviour {
         return new Coordinate(w, h);
     }
 
-    public bool IsWorldCoordinateOccupied(Vector3 worldCoordinate) {
+    public bool IsWorldCoordinateOccupied(Vector3 worldCoordinate, bool DoorCount = false) {
         Coordinate pos = WorldToCoordinate(worldCoordinate);
         bool result;
         try {
             result = (Maze[pos.x, pos.y].type == MazeID.WALL);
+            if ( result && !DoorCount ) {
+                if ( Maze[pos.x, pos.y].positionObject.GetComponent<RenderWall>().IsDoor) {
+                    result = false;
+                }
+            }
         } catch (Exception) {
             result = false;
         }

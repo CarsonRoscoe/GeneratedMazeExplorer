@@ -10,14 +10,16 @@ public class DataHandler : MonoBehaviour {
     [HideInInspector]
     public GameData data;
 
-    private string filename = "gamedata14.data";
+    private string filename = "gamedata15.data";
 
     void Awake() {
         Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
     }
 
     private DataHandler() {
-        loadData();
+        //loadData();
+        data = new GameData();
+        saveData();
     }
 
     public void saveData() {

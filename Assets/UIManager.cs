@@ -62,4 +62,9 @@ public class UIManager : MonoBehaviour {
         bool toggled = ToggleSoundButton.isOn;
         AudioManager.Instance.ToggleMusic(toggled);
     }
+
+    public void ToggleFlashlight() {
+        var light = GameObject.FindGameObjectWithTag( "Light" ).GetComponent<Light>();
+        light.enabled = !light.enabled;
+    }
 }

@@ -67,7 +67,7 @@ public class HumanMovement : MonoBehaviour {
         SnapToGrid();
     }
 
-    protected void SnapToGrid() {
+    public void SnapToGrid() {
         var x = (int)Math.Round( transform.position.x );
         var z = (int)Math.Round( transform.position.z );
         transform.position = new Vector3( x, transform.position.y, z );
