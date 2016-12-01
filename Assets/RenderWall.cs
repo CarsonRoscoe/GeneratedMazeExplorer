@@ -7,7 +7,6 @@ public class RenderWall : RenderSurface {
     public Material DoorMaterial;
 
     void Start() {
-        BecomeDoor();
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         Vector2[] UVs = new Vector2[mesh.vertices.Length];
 
