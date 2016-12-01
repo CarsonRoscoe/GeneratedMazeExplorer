@@ -1,4 +1,4 @@
-Assignment 2 by Carson Roscoe & Jaegar Sarauer
+Assignment 3 by Carson Roscoe & Jaegar Sarauer
 
 Features:
 * Pooling for all maze walls and floor tiles
@@ -14,6 +14,7 @@ A/D to turn left/right
 W to move forward
 E to toggle the ability to walk through walls
 Home to reset the level
+Click to shoot backk
 
 Desktop Xbox Controller Controls:
 Left-Joystick to turn left/right and move forward
@@ -24,5 +25,6 @@ Start button to reset level
 Mobile Controls:
 Swipe left/right to turn left/right
 Double tap to take a step forward
+Tap to shoot ball
 
-All modes have access to UI elements that allow the user to toggle the ability to walk through walls, turn on/off fog, turn on/off day/night lighting, and a button to reset the maze.
+All modes have access to UI elements that allow the user to toggle the ability to walk through walls, turn on/off fog, turn on/off day/night lighting, turn on/off flashlight, and a button to reset the maze.
